@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.js": "/egoska123/CourseWork/static/js/main.b091fa04.js",
-    "index.html": "/egoska123/CourseWork/index.html",
-    "main.b091fa04.js.map": "/egoska123/CourseWork/static/js/main.b091fa04.js.map"
+    "main.js": "/CourseWork/static/js/main.b091fa04.js",
+    "index.html": "/CourseWork/index.html",
+    "main.b091fa04.js.map": "/CourseWork/static/js/main.b091fa04.js.map"
   },
   "entrypoints": [
     "static/js/main.b091fa04.js"
