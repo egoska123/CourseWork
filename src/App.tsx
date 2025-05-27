@@ -14,6 +14,9 @@ import {
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 
+import InstructionModal from "./InstructionModal";
+import InfoIcon from "@mui/icons-material/Info";
+
 interface Subsection {
   title: string;
   content: string[];
@@ -45,6 +48,8 @@ function splitToParagraphs(text: string): string[] {
 
 function App() {
   const fileInputRefs = useRef<HTMLInputElement[]>([]);
+
+  const [instructionOpen, setInstructionOpen] = useState(false);
 
   const [filename, setFilename] = useState("my_course_work");
   const [introText, setIntroText] = useState("");
@@ -162,7 +167,7 @@ function App() {
 
       setJsonResult(JSON.stringify(result, null, 2));
 
-      const formatResponse = await fetch("https://fc07-60-122-90-45.ngrok-free.app/do_format/", {
+      const formatResponse = await fetch("https://74bd-111-99-212-37.ngrok-free.app/do_format/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(result),
@@ -176,7 +181,7 @@ function App() {
       }
 
       const decodedPath = filePath.replace(/__/g, "/");
-      const downloadResponse = await fetch(`https://fc07-60-122-90-45.ngrok-free.app/get_file/${decodedPath}`);
+      const downloadResponse = await fetch(`https://74bd-111-99-212-37.ngrok-free.app/get_file/${decodedPath}`);
       const blob = await downloadResponse.blob();
 
       if (!blob.type.includes("application/vnd.openxmlformats-officedocument.wordprocessingml.document")) {
@@ -200,13 +205,29 @@ function App() {
   return (
     <Container sx={{ py: 4 }}>
       <Typography variant="h4">Оформление курсовых/дипломов</Typography>
+      <Box sx={{ display: "flex", alignItems: "center", mb: 2 , mt: "2%"}}>
+        <Button
+          onClick={() => setInstructionOpen(true)}
+          variant="outlined"
+          color="secondary"
+          startIcon={<InfoIcon />}
+        >
+          Открыть инструкцию
+        </Button>
+        <Typography sx={{ ml: 2, fontWeight: 600, color: "error.main" }}>
+          Обязательно к прочтению
+        </Typography>
+      </Box>
+
+<InstructionModal open={instructionOpen} onClose={() => setInstructionOpen(false)} />
+
       <TextField fullWidth label="Название файла" value={filename} onChange={(e) => setFilename(e.target.value)} margin="normal" />
-      <TextField fullWidth multiline rows={5} label="Введение (абзацы — по строкам)" value={introText} onChange={(e) => setIntroText(e.target.value)} margin="normal" />
+      <TextField fullWidth multiline rows={5} label="Введение (Обозначить абзац — перенос строки)" value={introText} onChange={(e) => setIntroText(e.target.value)} margin="normal" />
 
       <Typography variant="h6" sx={{ mt: 4 }}>Раздел</Typography>
       <TextField fullWidth label="Название раздела" value={currentSectionTitle} onChange={(e) => setCurrentSectionTitle(e.target.value)} margin="normal" />
       <TextField fullWidth label="Название подраздела" value={subTitle} onChange={(e) => setSubTitle(e.target.value)} margin="normal" />
-      <TextField fullWidth label="Текст подраздела (абзацы = строки)" value={subText} onChange={(e) => setSubText(e.target.value)} multiline rows={5} margin="normal" />
+      <TextField fullWidth label="Текст подраздела (Обозначить абзац — перенос строки)" value={subText} onChange={(e) => setSubText(e.target.value)} multiline rows={5} margin="normal" />
       <Button onClick={handleAddOrUpdateSubsection} variant="outlined" sx={{ mt: 1 }}>{editingSubIndex !== null ? "💾 Сохранить изменения" : "➕ Добавить подраздел"}</Button>
 
       <Box sx={{ mt: 2 }}>
@@ -239,7 +260,7 @@ function App() {
         </Box>
       )}
 
-      <TextField fullWidth multiline rows={5} label="Заключение (абзацы — по строкам)" value={summaryText} onChange={(e) => setSummaryText(e.target.value)} margin="normal" />
+      <TextField fullWidth multiline rows={5} label="Заключение (Обозначить абзац — перенос строки)" value={summaryText} onChange={(e) => setSummaryText(e.target.value)} margin="normal" />
       <TextField fullWidth multiline rows={5} label="Источники (каждая строка — новый источник)" value={literatureText} onChange={(e) => setLiteratureText(e.target.value)} margin="normal" />
       <Box sx={{ mt: 4 }}>
         <Typography variant="h6">Приложения</Typography>
@@ -305,7 +326,7 @@ function App() {
         const formData = new FormData();
         formData.append("file", file);
         try {
-          const response = await fetch("https://fc07-60-122-90-45.ngrok-free.app/upload-image/", {
+          const response = await fetch("https://74bd-111-99-212-37.ngrok-free.app/upload-image/", {
             method: "POST",
             body: formData,
           });
@@ -361,7 +382,7 @@ function App() {
           </Box>
         ))}
       </Box>
-      <Button onClick={handleGenerate} variant="contained" sx={{ mt: 4 }}>✅ Сгенерировать структуру</Button>
+      <Button onClick={handleGenerate} variant="contained" sx={{ mt: 4 }}>✅ Создать оформление</Button>
 
       {/* {jsonResult && (
         <Box sx={{ mt: 4 }}>

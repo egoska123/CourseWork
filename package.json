@@ -2,7 +2,7 @@
   "name": "course-work-front",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://github.com/egoska123/CourseWork",
+  "homepage": "https://egoska123.github.io/CourseWork",
   "dependencies": {
     "@chakra-ui/react": "^3.17.0",
     "@emotion/react": "^11.14.0",
