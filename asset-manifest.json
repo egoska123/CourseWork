@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/CourseWork/static/js/main.10f5c283.js",
+    "main.js": "/CourseWork/static/js/main.741de9b2.js",
     "index.html": "/CourseWork/index.html",
-    "main.10f5c283.js.map": "/CourseWork/static/js/main.10f5c283.js.map"
+    "main.741de9b2.js.map": "/CourseWork/static/js/main.741de9b2.js.map"
   },
   "entrypoints": [
-    "static/js/main.10f5c283.js"
+    "static/js/main.741de9b2.js"
   ]
 }
